@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -26,9 +25,19 @@ namespace EmployeeServiceAPI.Controllers
         }
 
         // POST api/values
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post([FromBody]string value)
         {
-            strings.Add(value);
+            try
+            {
+                strings.Add(value);
+                var message = Request.CreateResponse(HttpStatusCode.Created);
+                message.Headers.Location = new Uri(Request.RequestUri + strings.Count.ToString());
+                return message;
+            }
+            catch(Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
         }
 
         // PUT api/values/5
