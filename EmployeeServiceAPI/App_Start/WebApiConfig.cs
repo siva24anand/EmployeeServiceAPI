@@ -24,8 +24,11 @@ namespace EmployeeServiceAPI
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            var cors = new EnableCorsAttribute("*", "*", "*");
-            config.EnableCors(cors);
+            config.Formatters.Add(new CustomJsonFormatter());
+            //config.Formatters.Remove(config.Formatters.XmlFormatter);
+
+            //var cors = new EnableCorsAttribute("*", "*", "*");
+            //config.EnableCors(cors);
 
             //JSONP implementation
             //var jsonpFormatter = new JsonpMediaTypeFormatter(config.Formatters.JsonFormatter);
@@ -44,6 +47,7 @@ namespace EmployeeServiceAPI
             public CustomJsonFormatter()
             {
                 this.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+                this.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/plain"));
             }
             public override void SetDefaultContentHeaders(Type type, HttpContentHeaders headers, MediaTypeHeaderValue mediaType)
             {
