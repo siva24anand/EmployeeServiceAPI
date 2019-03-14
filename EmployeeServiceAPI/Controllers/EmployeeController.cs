@@ -1,4 +1,5 @@
-﻿using EmployeeServiceAPI.Models;
+﻿using EmployeeServiceAPI.Helpers;
+using EmployeeServiceAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,16 +18,32 @@ namespace EmployeeServiceAPI.Controllers
             new Employee { Id = 3, FirstName = "siva3", LastName = "anand3", Gender = "Male", Salary = 3000 },
             new Employee { Id = 4, FirstName = "siva4", LastName = "anand4", Gender = "Male", Salary = 4000 }
         };
-        
+
+        [HttpGet]
+        [ActionName("GetEmployee")]
+        public HttpResponseMessage GetEmployee()
+        {
+            //return employees;
+            if (employees != null && employees.Count > 0)
+            {
+                var response = Request.CreateResponse(employees);
+                return response;
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+        }
+
         // GET api/values
-        public IHttpActionResult Get()
+        [HttpGet]
+        [ActionName("GetEmployeeResult")]
+        public IHttpActionResult GetEmployeeResult()
         {
             //return employees;
             if(employees != null && employees.Count >0)
             {
-                var response = Request.CreateResponse(employees);
-                //return response;
-                return Ok(employees);
+                return new EmployeeResult(employees, Request);
             }
             else
             {
@@ -36,6 +53,7 @@ namespace EmployeeServiceAPI.Controllers
 
         // GET api/values/5
         [HttpGet]
+        [ActionName("GetEmployeeById")]
         [AcceptVerbs("GET")]
         public HttpResponseMessage GetEmployee(int id)
         {
