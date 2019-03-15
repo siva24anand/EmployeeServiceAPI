@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using WebApiContrib.Formatting.Jsonp;
+using Unity;
 
 namespace EmployeeServiceAPI
 {
@@ -14,7 +15,6 @@ namespace EmployeeServiceAPI
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
             // Web API routes
             config.MapHttpAttributeRoutes();
 
