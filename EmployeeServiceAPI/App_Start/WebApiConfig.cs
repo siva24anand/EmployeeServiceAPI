@@ -7,6 +7,8 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using WebApiContrib.Formatting.Jsonp;
 using Unity;
+using EmployeeServiceAPI.Filters;
+using System.Web.Http.ExceptionHandling;
 
 namespace EmployeeServiceAPI
 {
@@ -14,6 +16,12 @@ namespace EmployeeServiceAPI
     {
         public static void Register(HttpConfiguration config)
         {
+            //Filters registration
+            config.Filters.Add(new ActionLogAttribute());
+            config.Filters.Add(new CustomException());
+            config.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());
+            config.Services.Replace(typeof(IExceptionLogger), new UnhandledExceptionLogger());
+
             // Web API configuration and services
             // Web API routes
             config.MapHttpAttributeRoutes();

@@ -1,4 +1,5 @@
-﻿using EmployeeServiceAPI.Helpers;
+﻿using EmployeeServiceAPI.Filters;
+using EmployeeServiceAPI.Helpers;
 using EmployeeServiceAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace EmployeeServiceAPI.Controllers
         public EmployeeController(IEmployeeData employeeData)
         {
             _employeeData = employeeData;
+            //throw new System.ArgumentException("Manual exception for exception handlers");
             _employees = _employeeData.EmpValues();
         }
 
@@ -23,10 +25,10 @@ namespace EmployeeServiceAPI.Controllers
         [ActionName("GetEmployee")]
         public HttpResponseMessage GetEmployee()
         {
-            //return employees;
             if (_employees != null && _employees.Count > 0)
             {
                 var response = Request.CreateResponse(_employees);
+                //throw new System.ArgumentException("Manually throwing exception");
                 return response;
             }
             else
