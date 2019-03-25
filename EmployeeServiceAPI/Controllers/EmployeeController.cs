@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace EmployeeServiceAPI.Controllers
 {
@@ -23,6 +24,8 @@ namespace EmployeeServiceAPI.Controllers
 
         [HttpGet]
         [ActionName("GetEmployee")]
+        //[Authorize]
+        //[EnableCors(origins:"http://localhost",headers:"*",methods:"*")]
         public HttpResponseMessage GetEmployee()
         {
             if (_employees != null && _employees.Count > 0)

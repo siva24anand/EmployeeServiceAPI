@@ -26,6 +26,11 @@ namespace EmployeeServiceAPI
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            //Enable CORS
+            //var cors = new EnableCorsAttribute("http://localhost", "*", "post");
+            //cors.SupportsCredentials = true;
+            //config.EnableCors(cors);
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
@@ -34,9 +39,6 @@ namespace EmployeeServiceAPI
 
             config.Formatters.Add(new CustomJsonFormatter());
             //config.Formatters.Remove(config.Formatters.XmlFormatter);
-
-            //var cors = new EnableCorsAttribute("*", "*", "*");
-            //config.EnableCors(cors);
 
             //JSONP implementation
             //var jsonpFormatter = new JsonpMediaTypeFormatter(config.Formatters.JsonFormatter);
